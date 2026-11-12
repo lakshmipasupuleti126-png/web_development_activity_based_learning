@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Crumbs Bakery</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #4b2922;
+        }
+
+        header {
+            background: #5a3028;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #ffdbb5;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            border: none;
+            background: transparent;
+            color: white;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: #e7a56d;
+            color: #45241d;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            min-height: 500px;
+            padding: 60px 8%;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(90deg, rgba(45, 22, 17, .78),
+                rgba(45, 22, 17, .12)),
+                url("https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1600&q=85")
+                center/cover;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 560px;
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(38px, 6vw, 62px);
+            margin: 15px 0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            color: #ffcf9d;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #e8a16a;
+            color: #44251c;
+            border: none;
+            padding: 13px 23px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #ffd0a5;
+        }
+
+        .section {
+            padding: 55px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-title h2 {
+            font-family: Georgia, serif;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #856b60;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px #5a302812;
+            transition: transform .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 9px;
+        }
+
+        .card p {
+            color: #80675c;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 19px;
+            font-weight: bold;
+            color: #a94e35;
+            margin-bottom: 15px;
+        }
+
+        .offer {
+            background: #f8e4d5;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .offer h2 {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .offer p {
+            margin-bottom: 20px;
+        }
+
+        .custom-box {
+            background: white;
+            max-width: 700px;
+            padding: 30px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px #5a302812;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 7px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dfc8b8;
+            border-radius: 6px;
+            background: #fffdfb;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .contact-info {
+            text-align: center;
+            line-height: 2.2;
+            font-size: 17px;
+        }
+
+        footer {
+            background: #5a3028;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 800px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                min-height: 420px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 45px 6%;
+            }
+
+            .section {
+                padding: 40px 6%;
+            }
+
+            nav button {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🍰 Sweet Crumbs</div>
+
+    <nav>
+        <button class="active" onclick="showPage('home', this)">Home</button>
+        <button onclick="showPage('cakes', this)">Cakes</button>
+        <button onclick="showPage('pastries', this)">Pastries</button>
+        <button onclick="showPage('custom', this)">Custom Cakes</button>
+        <button onclick="showPage('offers', this)">Offers</button>
+        <button onclick="showPage('contact', this)">Contact</button>
+    </nav>
+</header>
+
+<!-- HOME PAGE -->
+<main>
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <span class="tag">Freshly baked with love</span>
+            <h1>Every Bite Tells a Sweet Story!</h1>
+            <p>
+                Discover delicious cakes, delightful pastries and
+                freshly baked cookies made with love and the finest
+                ingredients.
+            </p>
+            <button class="btn" onclick="showPage('cakes')">
+                Explore Our Cakes
+            </button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">
+            <h2>Our Customer Favorites</h2>
+            <p>Handcrafted treats to make every moment special.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+                     alt="Chocolate celebration cake">
+                <div class="card-content">
+                    <h3>Chocolate Cake</h3>
+                    <p>Rich chocolate layers with creamy frosting.</p>
+                    <div class="price">₹650</div>
+                    <button class="btn" onclick="showPage('cakes')">
+                        View Cakes
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80"
+                     alt="Fresh pastry dessert">
+                <div class="card-content">
+                    <h3>Fresh Pastries</h3>
+                    <p>Delicate, soft and deliciously creamy.</p>
+                    <div class="price">₹100</div>
+                    <button class="btn" onclick="showPage('pastries')">
+                        View Pastries
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80"
+                     alt="Freshly baked cookies">
+                <div class="card-content">
+                    <h3>Butter Cookies</h3>
+                    <p>Golden, crunchy cookies baked fresh daily.</p>
+                    <div class="price">₹180 / box</div>
+                    <button class="btn" onclick="showPage('pastries')">
+                        Explore Treats
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offer">
+        <h2>🎉 Sweet Seasonal Offer!</h2>
+        <p>Enjoy 10% off your celebration cake. Make your moments sweeter!</p>
+        <button class="btn" onclick="showPage('offers')">See Offers</button>
+    </div>
+
+</section>
+
+<!-- CAKES PAGE -->
+<section id="cakes" class="page section">
+    <div class="section-title">
+        <h2>Our Delicious Cakes 🎂</h2>
+        <p>Perfect cakes for birthdays, celebrations and special moments.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+                 alt="Chocolate cake">
+            <div class="card-content">
+                <h3>Chocolate Truffle</h3>
+                <p>Chocolate sponge, rich ganache and chocolate shavings.</p>
+                <div class="price">₹650 / kg</div>
+                <button class="btn" onclick="showPage('custom')">Order Inquiry</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551879400-111a9087cd86?auto=format&fit=crop&w=700&q=80"
+                 alt="Pink frosted cake">
+            <div class="card-content">
+                <h3>Strawberry Cake</h3>
+                <p>Soft vanilla sponge with strawberry cream.</p>
+                <div class="price">₹700 / kg</div>
+                <button class="btn" onclick="showPage('custom')">Order Inquiry</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=700&q=80"
+                 alt="Decorated celebration cake">
+            <div class="card-content">
+                <h3>Celebration Cake</h3>
+                <p>Beautifully decorated cake for your special day.</p>
+                <div class="price">₹900 / kg</div>
+                <button class="btn" onclick="showPage('custom')">Order Inquiry</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PASTRIES AND COOKIES PAGE -->
+<section id="pastries" class="page section">
+    <div class="section-title">
+        <h2>Pastries & Cookies 🍪</h2>
+        <p>Little treats that bring big smiles.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80"
+                 alt="Creamy dessert">
+            <div class="card-content">
+                <h3>Cream Pastry</h3>
+                <p>Soft sponge with a smooth cream filling.</p>
+                <div class="price">₹100 each</div>
+                <button class="btn" onclick="showPage('contact')">Enquire Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80"
+                 alt="Homemade cookies">
+            <div class="card-content">
+                <h3>Butter Cookies</h3>
+                <p>Classic golden cookies with a buttery taste.</p>
+                <div class="price">₹180 / box</div>
+                <button class="btn" onclick="showPage('contact')">Enquire Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80"
+                 alt="Chocolate dessert">
+            <div class="card-content">
+                <h3>Chocolate Brownies</h3>
+                <p>Fudgy chocolate brownies for every chocolate lover.</p>
+                <div class="price">₹250 / box</div>
+                <button class="btn" onclick="showPage('contact')">Enquire Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CUSTOM CAKE PAGE -->
+<section id="custom" class="page section">
+    <div class="section-title">
+        <h2>Create Your Dream Cake 🎨</h2>
+        <p>Choose your flavor and share your celebration details.</p>
+    </div>
+
+    <form class="custom-box" onsubmit="submitOrder(event)">
+        <label for="customer">Your Name</label>
+        <input id="customer" type="text" placeholder="Enter your name" required>
+
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="tel" placeholder="Enter your phone number" required>
+
+        <label for="flavor">Cake Flavor</label>
+        <select id="flavor" required>
+            <option value="">Select a flavor</option>
+            <option>Chocolate Truffle</option>
+            <option>Vanilla</option>
+            <option>Strawberry</option>
+            <option>Red Velvet</option>
+            <option>Black Forest</option>
+        </select>
+
+        <label for="weight">Cake Weight</label>
+        <select id="weight" required>
+            <option value="">Select weight</option>
+            <option>0.5 kg</option>
+            <option>1 kg</option>
+            <option>2 kg</option>
+            <option>3 kg or more</option>
+        </select>
+
+        <label for="date">Required Date</label>
+        <input id="date" type="date" required>
+
+        <label for="design">Custom Design Details</label>
+        <textarea id="design" rows="4"
+                  placeholder="Birthday theme, colors, message, design..."></textarea>
+
+        <br><br>
+        <button class="btn" type="submit">Submit Inquiry</button>
+    </form>
+</section>
+
+<!-- OFFERS PAGE -->
+<section id="offers" class="page section">
+    <div class="section-title">
+        <h2>Special Offers 🎁</h2>
+        <p>Celebrate more and enjoy something sweet.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+                 alt="Celebration cake offer">
+            <div class="card-content">
+                <h3>Celebration Special</h3>
+                <p>Save on selected celebration cakes.</p>
+                <div class="price">10% OFF</div>
+                <p>Ask us about current availability.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80"
+                 alt="Cookie gift box">
+            <div class="card-content">
+                <h3>Cookie Gift Box</h3>
+                <p>A sweet gift for friends and family.</p>
+                <div class="price">From ₹180</div>
+                <p>Perfect for sharing.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80"
+                 alt="Pastry collection">
+            <div class="card-content">
+                <h3>Pastry Treat</h3>
+                <p>Enjoy a delicious little dessert.</p>
+                <div class="price">From ₹100</div>
+                <p>Available while stocks last.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT PAGE -->
+<section id="contact" class="page section">
+    <div class="section-title">
+        <h2>Visit Our Bakery ❤️</h2>
+        <p>We would love to make your day sweeter!</p>
+    </div>
+
+    <div class="custom-box contact-info">
+        <h3>🍰 Sweet Crumbs Bakery</h3>
+        <p>📍 Address: Add your bakery address here</p>
+        <p>📞 Phone: +91 XXXXX XXXXX</p>
+        <p>✉️ Email: sweetcrumbs@example.com</p>
+        <p>🕒 Opening Hours: 9:00 AM – 9:00 PM</p>
+        <p>🎂 Custom cakes available by advance inquiry.</p>
+        <br>
+        <button class="btn" onclick="showPage('custom')">
+            Enquire About a Cake
+        </button>
+    </div>
+</section>
+</main>
+
+<footer>
+    <p>© 2026 Sweet Crumbs Bakery | Baked with Love ❤️</p>
+    <p>Fresh Cakes • Pastries • Cookies • Happy Moments</p>
+</footer>
+
+<script>
+    function showPage(pageId, clickedButton) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+
+        // Display only the selected page
+        document.getElementById(pageId).classList.add('active');
+
+        // Update active navigation button
+        document.querySelectorAll('nav button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Highlight the clicked navigation button
+        if (clickedButton) {
+            clickedButton.classList.add('active');
+        } else {
+            document.querySelectorAll('nav button').forEach(button => {
+                if (button.getAttribute('onclick').includes("'" + pageId + "'")) {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        // Start the selected page from the top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function submitOrder(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('customer').value;
+        const flavor = document.getElementById('flavor').value;
+        const weight = document.getElementById('weight').value;
+
+        alert(
+            'Thank you, ' + name + '!\n' +
+            'Your cake inquiry has been prepared.\n' +
+            'Flavor: ' + flavor + '\n' +
+            'Weight: ' + weight + '\n\n' +
+            'Please contact the bakery to confirm your order.'
+        );
+
+        event.target.reset();
+    }
+</script>
+
+</body>
+</html>
